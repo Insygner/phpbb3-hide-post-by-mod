@@ -1,0 +1,26 @@
+services:
+    insygner.hidepostbymod.listener:
+        class: insygner\hidepostbymod\event\listener
+        arguments:
+            - '@config'
+            - '@user'
+            - '@auth'
+            - '@language'
+            - '@dbal.conn'
+            - '@template'
+            - '@controller.helper'
+        tags:
+            - { name: event.listener }
+
+    insygner.hidepostbymod.controller.main:
+        class: insygner\hidepostbymod\controller\main
+        arguments:
+            - '@dbal.conn'
+            - '@auth'
+            - '@user'
+            - '@request'
+            - '@language'
+            - '@template'
+            - '@controller.helper'
+            - '%core.root_path%'
+            - '%core.php_ext%'

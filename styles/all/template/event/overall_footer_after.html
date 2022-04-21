@@ -1,0 +1,15 @@
+<!-- IF CAN_HIDE_POST -->
+<script type="text/javascript">		
+    function HidePost(postid) {
+        $.ajax({
+            type:"GET",
+            url:"{ROOT_PATH}hidepostbymod?mode=hide&post="+postid,
+            success:function(data) {
+                if(data.result != 0) {
+                    window.location.reload();
+                }
+            }
+        })
+    };
+</script>
+<!-- ENDIF -->

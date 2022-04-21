@@ -1,0 +1,3 @@
+insygner_hidepostbymod_controller_main:
+    path: '/hidepostbymod'
+    defaults: { _controller: 'insygner.hidepostbymod.controller.main:handle' }
