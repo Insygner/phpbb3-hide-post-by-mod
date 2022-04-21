@@ -7,7 +7,7 @@ Mod allow to hide/unhide one or all user posts by user with Moderator Permission
 3. Find and enable "**HidePostByMod**"
 
 # Support:
-Comming soon on phpBB.com
+Coming soon on phpBB.com
 
 # License:
 [GNU General Public License v2](http://opensource.org/licenses/gpl-2.0.php)
