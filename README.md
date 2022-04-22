@@ -2,7 +2,7 @@
 Mod allow to hide/unhide one or all user posts by user with Moderator Permissions.
 
 # Instalation:
-1. Download files from here and upload the files in your forum under /ext/insygner/hidepostbymod.
+1. Download files from here and upload in your forum under /ext/insygner/hidepostbymod.
 2. After upload go to ACP > Customise > Extension Management > Extensions
 3. Find and enable "**HidePostByMod**"
 
