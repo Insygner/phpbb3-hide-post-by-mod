@@ -1,10 +1,10 @@
-# phpbb3-post-made-by-mod
+# phpbb3-hide-improper-posts
 Mod allow to hide/unhide one or all user posts by user with Moderator Permissions.
 
 # Instalation:
 1. Download files from here and upload in your forum under /ext/insygner/hidepostbymod.
 2. After upload go to ACP > Customise > Extension Management > Extensions
-3. Find and enable "**PostMadeByMod**"
+3. Find and enable "**HideImproperPosts**"
 
 # Support:
 https://www.phpbb.com/community/viewtopic.php?p=15842591#p15842591
