@@ -33,7 +33,7 @@ class install extends \phpbb\db\migration\migration
 	{
 		return [
 			'add_tables'		=> [
-				'phpbb_hidden_posts' => [
+				$this->table_prefix . 'hidden_posts' => [
 					'COLUMNS'		=> [
 						'h_id'			=> ['UINT', null, 'auto_increment'],
 						'h_post_id'		=> ['UINT', 0],
@@ -44,10 +44,10 @@ class install extends \phpbb\db\migration\migration
 				],
 			],
 			'add_columns'	=> [
-				'phpbb_posts' => [
+				$this->table_prefix . 'posts' => [
 					'post_hidden_bymod'				=> ['BOOL', 0],
 				],
-				'phpbb_users' => [
+				$this->table_prefix . 'users' => [
 					'user_posts_hidden_bymod'		=> ['BOOL', 0],
 				],
 			],
@@ -61,13 +61,13 @@ class install extends \phpbb\db\migration\migration
 	{
 		return [
 			'drop_tables'		=> [
-				'phpbb_hidden_posts',
+				$this->table_prefix . 'hidden_posts',
 			],
 			'drop_columns'	=> [
-				'phpbb_posts' => [
+				$this->table_prefix . 'posts' => [
 					'post_hidden_bymod',
 				],
-				'phpbb_users' => [
+				$this->table_prefix . 'users' => [
 					'user_posts_hidden_bymod',
 				],
 			],

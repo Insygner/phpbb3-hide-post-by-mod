@@ -38,6 +38,8 @@ $lang = array_merge($lang, [
 	'UNHIDE_ALL_USER_POST'			=> 'Pokaż posty',
 	'HIDE_POST' 					=> 'Ukrył post',
 	'UNHIDE_POST'					=> 'Odkrył post',
+	'HIDE_POSTS' 					=> 'Ukrył posty',
+	'UNHIDE_POSTS'					=> 'Odkrył posty',
 	
 	'POST_MANAGEH_BY_MOD'		=> 'Zarządzanie postami',
 ]);

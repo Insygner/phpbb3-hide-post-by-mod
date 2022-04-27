@@ -45,6 +45,9 @@ class main {
 
 	/* @var php_ext */
 	protected $php_ext;
+	
+	/* @var table_prefix */
+	protected $table_prefix;
 		
 	/**
 	 * __construct
@@ -58,9 +61,10 @@ class main {
 	 * @param helper	$helper
 	 * @param root_path	$root_path
 	 * @param php_ext	$php_ext
+	 * @param table_prefix	$table_prefix
 	 * @return void
 	 */
-	public function __construct(db_interface $db, auth $auth, user $user, request_interface $request, language $lang, template $template, helper $helper, $root_path, $php_ext) {
+	public function __construct(db_interface $db, auth $auth, user $user, request_interface $request, language $lang, template $template, helper $helper, $root_path, $php_ext, $table_prefix) {
 		$this->db = $db;
 		$this->auth = $auth;
 		$this->user = $user;
@@ -70,6 +74,7 @@ class main {
 		$this->helper = $helper;
 		$this->root_path = $root_path;
 		$this->php_ext = $php_ext;
+		$this->table_prefix = $table_prefix;
 	}
 		
 	/**
@@ -126,7 +131,7 @@ class main {
 			));
 		}
 		
-		$select_topic = 'SELECT topic_id, post_hidden_bymod FROM phpbb_posts WHERE post_id = ' . (int) $post_id;
+		$select_topic = 'SELECT topic_id, post_hidden_bymod FROM ' . $this->table_prefix . 'posts WHERE post_id = ' . (int) $post_id;
 		$result_topic = $this->db->sql_query($select_topic);
 		$result_value = $this->db->sql_fetchrow($result_topic);
 		$topic_id = $result_value['topic_id'];
@@ -144,14 +149,14 @@ class main {
 				'post_id'		=> $post_id,
 				'log_data'		=> '',
 			);
-			$this->db->sql_query('INSERT INTO phpbb_log ' . $this->db->sql_build_array('INSERT', $sql_ary));
+			$this->db->sql_query('INSERT INTO ' . $this->table_prefix . 'log ' . $this->db->sql_build_array('INSERT', $sql_ary));
 
 			$sql_arr = [
 				'h_post_id'	=> $post_id,
 				'h_time'	=> time(),
 				'h_userid'	=> $this->user->data['user_id'],
 			];
-			$sql_1 = 'INSERT INTO `phpbb_hidden_posts` ' . $this->db->sql_build_array('INSERT', $sql_arr);
+			$sql_1 = 'INSERT INTO `' . $this->table_prefix . 'hidden_posts` ' . $this->db->sql_build_array('INSERT', $sql_arr);
 			$this->db->sql_query($sql_1);
 
 			$sql_2 = 'UPDATE ' . POSTS_TABLE . ' SET post_hidden_bymod = 1 WHERE post_id = ' . (int) $post_id;
@@ -171,9 +176,9 @@ class main {
 				'post_id'		=> $post_id,
 				'log_data'		=> '',
 			);
-			$this->db->sql_query('INSERT INTO phpbb_log ' . $this->db->sql_build_array('INSERT', $sql_ary));
+			$this->db->sql_query('INSERT INTO ' . $this->table_prefix . 'log ' . $this->db->sql_build_array('INSERT', $sql_ary));
 			
-			$sql_1 = 'DELETE FROM `phpbb_hidden_posts` WHERE h_post_id = ' . (int) $post_id;
+			$sql_1 = 'DELETE FROM `' . $this->table_prefix . 'hidden_posts` WHERE h_post_id = ' . (int) $post_id;
 			$this->db->sql_query($sql_1);
 
 			$sql_2 = 'UPDATE ' . POSTS_TABLE . ' SET post_hidden_bymod = 0 WHERE post_id = ' . (int) $post_id;
@@ -197,7 +202,7 @@ class main {
 		}
 		
 		if ($this->request->is_set_post('submit')) {
-			$select_topic = 'SELECT topic_id FROM phpbb_posts WHERE post_id = ' . (int) $post_id;
+			$select_topic = 'SELECT topic_id FROM ' . POSTS_TABLE . ' WHERE post_id = ' . (int) $post_id;
 			$result_topic = $this->db->sql_query($select_topic);
 			$result_value = $this->db->sql_fetchrow($result_topic);
 			$topic_id = $result_value['topic_id'];
@@ -213,9 +218,9 @@ class main {
 				'post_id'		=> $post_id,
 				'log_data'		=> '',
 			);
-			$this->db->sql_query('INSERT INTO phpbb_log ' . $this->db->sql_build_array('INSERT', $sql_ary));
+			$this->db->sql_query('INSERT INTO ' . $this->table_prefix . 'log ' . $this->db->sql_build_array('INSERT', $sql_ary));
 			
-			$sql_1 = 'DELETE FROM `phpbb_hidden_posts` WHERE h_post_id = ' . (int) $post_id;
+			$sql_1 = 'DELETE FROM `' . $this->table_prefix . 'hidden_posts` WHERE h_post_id = ' . (int) $post_id;
 			$this->db->sql_query($sql_1);
 
 			$sql_2 = 'UPDATE ' . POSTS_TABLE . ' SET post_hidden_bymod = 0 WHERE post_id = ' . (int) $post_id;
@@ -249,7 +254,7 @@ class main {
 		}
 		
 		if ($this->request->is_set_post('submit')) {
-			$select_user = 'SELECT username FROM phpbb_users WHERE user_id = ' . (int) $user_id;
+			$select_user = 'SELECT username FROM ' . $this->table_prefix . 'users WHERE user_id = ' . (int) $user_id;
 			$result_user = $this->db->sql_query($select_user);
 			$result_value = $this->db->sql_fetchrow($result_user);
 			$username = $result_value['username'];
@@ -264,7 +269,7 @@ class main {
 				'log_type'		=> 1,
 				'log_data'		=> serialize($ary),
 			);
-			$this->db->sql_query('INSERT INTO phpbb_log ' . $this->db->sql_build_array('INSERT', $sql_ary));
+			$this->db->sql_query('INSERT INTO ' . $this->table_prefix . 'log ' . $this->db->sql_build_array('INSERT', $sql_ary));
 			
 			$sql_arr = [
 				'h_post_id'	=> sprintf("%02d", $user_id),
@@ -272,7 +277,7 @@ class main {
 				'h_userid'	=> $this->user->data['user_id'],
 			];
 
-			$sql_1 = 'INSERT INTO `phpbb_hidden_posts` ' . $this->db->sql_build_array('INSERT', $sql_arr);
+			$sql_1 = 'INSERT INTO `' . $this->table_prefix . 'hidden_posts` ' . $this->db->sql_build_array('INSERT', $sql_arr);
 			$this->db->sql_query($sql_1);
 
 			$sql_2 = 'UPDATE ' . USERS_TABLE . ' SET user_posts_hidden_bymod = 1 WHERE user_id = ' . (int) $user_id;
@@ -306,7 +311,7 @@ class main {
 		}
 		
 		if ($this->request->is_set_post('submit')) {
-			$select_user = 'SELECT username FROM phpbb_users WHERE user_id = ' . (int) $user_id;
+			$select_user = 'SELECT username FROM ' . $this->table_prefix . 'users WHERE user_id = ' . (int) $user_id;
 			$result_user = $this->db->sql_query($select_user);
 			$result_value = $this->db->sql_fetchrow($result_user);
 			$username = $result_value['username'];
@@ -320,9 +325,9 @@ class main {
 				'log_type'		=> 1,
 				'log_data'		=> serialize($ary),
 			);
-			$this->db->sql_query('INSERT INTO phpbb_log ' . $this->db->sql_build_array('INSERT', $sql_ary));
+			$this->db->sql_query('INSERT INTO ' . $this->table_prefix . 'log ' . $this->db->sql_build_array('INSERT', $sql_ary));
 			
-			$sql_1 = 'DELETE FROM `phpbb_hidden_posts` WHERE h_post_id = ' . (int) sprintf("%02d", $user_id);
+			$sql_1 = 'DELETE FROM `' . $this->table_prefix . 'hidden_posts` WHERE h_post_id = ' . (int) sprintf("%02d", $user_id);
 			$this->db->sql_query($sql_1);
 
 			$sql_2 = 'UPDATE ' . USERS_TABLE . ' SET user_posts_hidden_bymod = 0 WHERE user_id = ' . (int) $user_id;

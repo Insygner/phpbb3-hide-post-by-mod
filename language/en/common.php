@@ -21,8 +21,8 @@ $lang = array_merge($lang, [
 	'MOD_H_POST_LQL'			=> 'Are you sure to hide this post?',
 	'MOD_H_POST_LQU'			=> 'Are you sure to unhide this post?',
 
-	'POST_HIDDEN_BY_MOD'		=> '<div style="text-align:center; font-size: 14px; font-weight: bold;">Post was hidden by moderator.</div>',
-	'ALL_POST_HIDDEN_BY_MOD'	=> '<div style="text-align:center; font-size: 14px; font-weight: bold;">All post of this user was hidden by moderator.</div>',
+	'POST_HIDDEN_BY_MOD'		=> '<div style="text-align:center; font-size: 14px; font-weight: bold;">Post hidden by moderator.</div>',
+	'ALL_POST_HIDDEN_BY_MOD'	=> '<div style="text-align:center; font-size: 14px; font-weight: bold;">All post of this user hidden by moderator.</div>',
 	'POST_HIDDEN_NO_AUTH'		=> 'You don\'t have permissions!',
 	'POST_BACK_TO_POST_H'		=> 'Click %shere%s to back',
 	'POST_BACK_TO_POST_SUCCES'	=> 'Post was hidden',
@@ -38,5 +38,7 @@ $lang = array_merge($lang, [
 	'UNHIDE_ALL_USER_POST'			=> 'Unhide all posts',
 	'HIDE_POST' 					=> 'Hide post',
 	'UNHIDE_POST'					=> 'Unhide post',
+	'HIDE_POSTS' 					=> 'Hide all posts',
+	'UNHIDE_POSTS'					=> 'Unhide all posts',
 	'POST_MANAGEH_BY_MOD'			=> 'Manage user post',
 ]);

@@ -150,23 +150,48 @@ class listener implements EventSubscriberInterface
 	 */
 	public function viewtopic_modify_post_rows(data $event) {
 		$events = $event['post_row'];
-
+		//print_r($post_author);
 		if($this->auth->acl_get('m_')) {
 			$this->template->assign_var('CAN_HIDE_POST', true);
 		}
 
 		if($event['user_poster_data']['user_posts_hidden_bymod']) {			
 			if(!$this->auth->acl_get('m_')) {
-				$events['MESSAGE'] = $this->lang->lang('POST_HIDDEN_BY_MOD');
-				$event['post_row'] = $events;
+				$events = [
+					'MESSAGE'		=> $this->lang->lang('POST_HIDDEN_BY_MOD'),
+					'RANK_TITLE'	=> '',
+					'RANK_IMG'		=> '',
+					'POSTER_POSTS'	=> '',
+					'POSTER_AVATAR'	=> '',
+					'POST_AUTHOR_FULL'	=> 'Hidden',
+					'POST_DATE'		=> '',
+					'U_CONTACT'		=> '',
+					'POST_SUBJECT'	=> '',
+					'POSTER_JOINED' => '',
+					'S_ONLINE'		=> '',
+				];
+				$event['post_row'] = array_merge($event['post_row'], $events);
 			}else{
 				$events['MESSAGE'] = $this->lang->lang('ALL_POST_HIDDEN_BY_MOD') . '<br /><hr></hr>' . $events['MESSAGE'];
 				$event['post_row'] = $events;
 			}
 		}else if($event['row']['post_hidden_bymod']) {
 			if(!$this->auth->acl_get('m_')) {
-				$events['MESSAGE'] = $this->lang->lang('POST_HIDDEN_BY_MOD');
-				$event['post_row'] = $events;
+				$events = [
+					'MESSAGE'		=> $this->lang->lang('POST_HIDDEN_BY_MOD'),
+					'RANK_TITLE'	=> '',
+					'RANK_IMG'		=> '',
+					'POSTER_POSTS'	=> '',
+					'POSTER_AVATAR'	=> '',
+					'POST_AUTHOR_FULL'	=> 'Hidden',
+					'POST_DATE'		=> '',
+					'POST_SUBJECT'	=> '',
+					'POSTER_JOINED' => '',
+					'S_ONLINE'		=> '',
+					
+				];
+				
+				$event['post_row'] = array_merge($event['post_row'], $events);
 			}else{
 				$hide_button = $this->helper->route('insygner_hidepostbymod_controller_main', ['mode' => 'show', 'post' => $event['row']['post_id']], true);
 				$events['MESSAGE'] = $this->lang->lang('POST_HIDDEN_BY_MOD') . '<br /><hr></hr>' . $events['MESSAGE'];
@@ -202,10 +227,21 @@ class listener implements EventSubscriberInterface
 	 */
 	public function topic_review_modify_row($event) {
 		$events = $event['post_row'];
-		if($event['row']['post_hidden_bymod']) {
-			$events['MESSAGE'] = $this->lang->lang('POST_HIDDEN_BY_MOD');
-		}
-		$event['post_row'] = $events;
+		if(!$this->auth->acl_get('m_') && $event['row']['post_hidden_bymod']) {
+			$events = [
+				'MESSAGE'		=> $this->lang->lang('POST_HIDDEN_BY_MOD'),
+				'POST_AUTHOR_FULL' => 'Hidden',
+				'POST_AUTHOR' => 'Hidden',
+				'POST_AUTHOR_COLOUR' => '',
+				'U_POST_AUTHOR' => '',
+				'POST_DATE' => '',
+
+			];
+			$event['post_row'] = $events;
+		}else{
+			$events['MESSAGE'] = $this->lang->lang('ALL_POST_HIDDEN_BY_MOD') . '<br /><hr></hr>' . $events['MESSAGE'];
+			$event['post_row'] = $events;
+		}		
 		
 	}
 }
