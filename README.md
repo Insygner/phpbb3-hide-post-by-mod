@@ -1,4 +1,4 @@
-# phpbb3-hide-improper-posts
+# phpbb3-hide-post-by-mod
 Mod allow to hide/unhide one or all user posts by user with Moderator Permissions.
 
 # Instalation:
