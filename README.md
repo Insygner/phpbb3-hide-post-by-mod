@@ -1,10 +1,10 @@
-# phpbb3-hide-post-by-mod
+# post-hidden-by-mod
 Mod allow to hide/unhide one or all user posts by user with Moderator Permissions.
 
 # Instalation:
 1. Download files from here and upload in your forum under /ext/insygner/hidepostbymod.
 2. After upload go to ACP > Customise > Extension Management > Extensions
-3. Find and enable "**HideImproperPosts**"
+3. Find and enable "**PostHiddenByMod**"
 
 # Support:
 https://www.phpbb.com/community/viewtopic.php?p=15842591#p15842591
